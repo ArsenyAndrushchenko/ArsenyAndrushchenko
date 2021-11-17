@@ -1,5 +1,6 @@
 from tkinter import *
-from tkinter import messagebox
+#from tkinter import massagebox
+from random import choice, randrange
 # Ниже представленны переменные, которые будут использоваться в будующем. Пока что они не используються
 W, H = 10, 20
 TILE = 45
@@ -19,7 +20,7 @@ tk.protocol("WM_DELETE_WINDOW", on_closing) # Обработка функции 
 tk.title("Тетрис РГГМУ") # Название окна
 tk.resizable(0, 0) # Эта функция позмоляет маштабировать окно (Она практически бесполезна, весть картинку в окне масштабировать не получитья)
 tk.wm_attributes("-topmost", 1)
-#tk.iconbitmap("Icons/icon image for tetris")
+
 
 canvas = Canvas(tk, width=RES[0], height=RES[1], bg="black", highlightthickness=0) #Задний фон (черный)
 canvas.pack()
@@ -31,14 +32,26 @@ grid = [canvas.create_rectangle(x * TILE, y * TILE, x * TILE+TILE, y * TILE+TILE
 for item in grid:
     canvas.move(item, 20, 20)
 
+score = 0
+record = "0"
 
-#canvas.create_oval(100, 100, 300, 300, fill="yellow", outline="")
-#canvas.create_oval(120, 120, 280, 280, fill="white", outline="")
+canvas.create_text(535, 780,text="score:", font=("Arial", 30),fill="white", anchor=NW) #Отрисовка текста и счета
+canvas.create_text(550, 840,text=str(score), font=("Arial", 30),fill="white", anchor=NW)
+canvas.create_text(525, 650,text="record:", font=("Arial", 30),fill="gold", anchor=NW)
+canvas.create_text(550, 710,text=record, font=("Arial", 30),fill="gold", anchor=NW)
+canvas.create_text(625, 60,text="Tetris RSHU", font=("Arial", 30),fill="white")
 
-#canvas.create_rectangle(400,100,500,500, fill="lightgreen")
-#canvas.create_rectangle(420,120,480,480, fill="darkgreen", outline="")
+get_color = lambda : (randrange(30, 256), randrange(30, 256), randrange(30, 256))
 
-canvas.create_text(625, 60,text="Тетрис РГГМУ", font=("Arial", 30),fill="white")
+def rgb_to_hex(rgb):
+    return '#%02x%02x%02x' % rgb
 
+#print(rgb_to_hex(get_color()))
+
+for item in grid:
+    canvas.itemconfigure(item, fill=rgb_to_hex(get_color()))
+
+#for item in grid:
+#    canvas.itemconfigure(item, fill="")
 
 tk.mainloop()
