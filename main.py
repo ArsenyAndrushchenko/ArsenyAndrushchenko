@@ -27,6 +27,11 @@ canvas.pack()
 img_obj2 = PhotoImage(file="Icons/bg2.png")
 canvas.create_image(20, 20, anchor=NW, image=img_obj2)
 
+grid = [canvas.create_rectangle(x * TILE, y * TILE, x * TILE+TILE, y * TILE+TILE) for x in range(W) for y in range(H)]
+for item in grid:
+    canvas.move(item, 20, 20)
+
+
 #canvas.create_oval(100, 100, 300, 300, fill="yellow", outline="")
 #canvas.create_oval(120, 120, 280, 280, fill="white", outline="")
 
